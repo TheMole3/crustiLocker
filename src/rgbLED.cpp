@@ -8,8 +8,6 @@
 #include "Arduino.h"
 #include "rgbLED.h"
 
-#include <Ticker.h>  //Ticker Library
-
 rgbLED::rgbLED(int pinR, int pinG, int pinB) {
     _pinR = pinR;
     _pinG = pinG;
