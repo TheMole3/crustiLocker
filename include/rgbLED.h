@@ -1,18 +1,18 @@
 /*
 
-  rgbLED.h - Library for controlling an RGB led
+  RGBLED.h - Library for controlling an RGB led
 
 */
 
-#ifndef rgbLED_h
-#define rgbLED_h
+#ifndef RGBLED_h
+#define RGBLED_h
 
 #include "Arduino.h"
 
-class rgbLED
+class RGBLED
 {
   public:
-    rgbLED(int pinR, int pinG, int pinB);
+    RGBLED(int pinR, int pinG, int pinB);
     void setColor(int R, int G, int B);
 
   private:

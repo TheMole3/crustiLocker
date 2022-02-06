@@ -9,7 +9,7 @@
 
 #include <string>
 
-bool store::checkTransaction(String id) 
+bool Store::checkTransaction(String id) 
 {
   bool found = false;
 
@@ -39,7 +39,7 @@ bool store::checkTransaction(String id)
 
 
 
-int store::getCrustis() 
+int Store::getCrustis() 
 {
   int crustisLeft = 0;
 
@@ -59,7 +59,7 @@ int store::getCrustis()
   return crustisLeft;
 };
 
-int store::setCrustis(int amount) 
+int Store::setCrustis(int amount) 
 {
   LittleFS.begin();
 
@@ -72,7 +72,7 @@ int store::setCrustis(int amount)
   return amount;
 };
 
-int store::addCrustis(int amount) 
+int Store::addCrustis(int amount) 
 {
   int newAmount = getCrustis() + amount;
 
@@ -88,7 +88,7 @@ int store::addCrustis(int amount)
 };
 
 
-String store::getConfigValue(String key) 
+String Store::getConfigValue(String key) 
 {
   String value;
 
@@ -113,7 +113,7 @@ String store::getConfigValue(String key)
   return value;
 }
 
-void store::setConfigValue(String key, String val) 
+void Store::setConfigValue(String key, String val) 
 {
   String config = "";
 

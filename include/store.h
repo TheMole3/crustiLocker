@@ -12,7 +12,7 @@
 #include "Arduino.h"
 #include "LittleFS.h" // LittleFS is declared
 
-class store 
+class Store 
 {
   public:
     // Check if a transaction ID has already been dispensed, if it hasn't it will save the supplied ID to storage

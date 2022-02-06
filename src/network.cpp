@@ -5,10 +5,10 @@
 */
 
 #include "Arduino.h"
-#include "network.h"
+#include "Network.h"
 
 
-void network::init()
+void Network::init()
 {
     // Setting ESP into STATION mode only (no AP mode or dual mode)
     wifi_set_opmode(STATION_MODE);
@@ -30,7 +30,7 @@ void network::init()
 };
 
 
-String network::httpGETRequest(const char* serverName, String access_token) 
+String Network::httpGETRequest(const char* serverName, String access_token) 
 {
     Serial.println("GET " + String(serverName));
 
@@ -69,7 +69,7 @@ String network::httpGETRequest(const char* serverName, String access_token)
     return payload;
 }
 
-String network::httpPOSTRequest(const char* serverName, String body, String access_token) 
+String Network::httpPOSTRequest(const char* serverName, String body, String access_token) 
 {
     Serial.println("POST " + String(serverName));
 

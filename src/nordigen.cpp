@@ -5,13 +5,13 @@
 */
 
 #include "Arduino.h"
-#include "nordigen.h"
+#include "Nordigen.h"
 
 #include <regex>
 
-#include "store.h"
+#include "Store.h"
 
-nordigen::nordigen()
+Nordigen::Nordigen()
 {
     store Storage;
     endUserId = Storage.getConfigValue("endUserId");
@@ -28,13 +28,13 @@ nordigen::nordigen()
     
 }
 
-bool nordigen::newCrustiTransactionExists(network Internet)
+bool Nordigen::newCrustiTransactionExists(Network network)
 {
     bool status = false;
     if(WiFi.status()== WL_CONNECTED){
         String serverPath = apiURL + "/accounts/" + account_UUID + "/transactions/";
         
-        String transactions = Internet.httpGETRequest(serverPath.c_str(), access_token);
+        String transactions = network.httpGETRequest(serverPath.c_str(), access_token);
 
         DynamicJsonDocument doc(1024);
         deserializeJson(doc, transactions);
@@ -62,13 +62,13 @@ bool nordigen::newCrustiTransactionExists(network Internet)
 }
 
 
-String nordigen::getRequsitionLink(network Internet) 
+String Nordigen::getRequsitionLink(Network network) 
 {
     String requsitionLink;
     if(WiFi.status()== WL_CONNECTED){
         String serverPath = apiURL + "/requisitions/" + requisition_UUID + "/links/";
          
-        String requsition = Internet.httpPOSTRequest(serverPath.c_str(),"{\"aspsp_id\": \"" + aspsp_id + "\"}", access_token);
+        String requsition = network.httpPOSTRequest(serverPath.c_str(),"{\"aspsp_id\": \"" + aspsp_id + "\"}", access_token);
 
         DynamicJsonDocument doc(1024);
         deserializeJson(doc, requsition);

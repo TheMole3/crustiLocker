@@ -1,20 +1,20 @@
 /*
 
-  stepperController.h - Library for controlling a stepper motor
+  StepperController.h - Library for controlling a stepper motor
 
 */
 
-#ifndef stepperController_h
-#define stepperController_h
+#ifndef StepperController_h
+#define StepperController_h
 
 #include "Arduino.h"
 
 #include <AccelStepper.h>
 
-class stepperController 
+class StepperController 
 {
   public:
-    stepperController (int IN1, int IN2, int IN3, int IN4);
+    StepperController (int IN1, int IN2, int IN3, int IN4);
 
     void rotate(int deg);
 

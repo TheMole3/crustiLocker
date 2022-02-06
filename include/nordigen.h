@@ -4,23 +4,23 @@
 
 */
 
-#ifndef nordigen_h
-#define nordigen_h
+#ifndef Nordigen_h
+#define Nordigen_h
 
 #include "Arduino.h"
 
-#include "network.h"
+#include "Network.h"
 
-class nordigen 
+class Nordigen 
 {
   public:
-    nordigen();
+    Nordigen();
 
     // Check if a new transaction for a crusti has appeared in the bank
-    bool newCrustiTransactionExists(network Internet);
+    bool newCrustiTransactionExists(Network network);
 
     // Get a requsitionLink to update nordigen, returns null if no requsition could be made
-    String getRequsitionLink(network Internet);
+    String getRequsitionLink(Network network);
 
   private:
     String apiURL   = "https://proxy.melo.se/nordigen/api";
@@ -30,7 +30,6 @@ class nordigen
     String requisition_UUID; // The UUID of the requisition
     String account_UUID; // The UUID of the bank account to check for transactions
     String aspsp_id; // Sandbox
-    //String aspsp_id           = "SWEDBANK_SWEDSESS"; // Swedbank
 };
 
 

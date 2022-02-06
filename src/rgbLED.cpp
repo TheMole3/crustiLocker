@@ -1,14 +1,14 @@
 /*
 
-  rgbLED.h - Library for controlling an RGB led
+  RGBLED.h - Library for controlling an RGB led
 
 */
 
 
 #include "Arduino.h"
-#include "rgbLED.h"
+#include "RGBLED.h"
 
-rgbLED::rgbLED(int pinR, int pinG, int pinB) 
+RGBLED::RGBLED(int pinR, int pinG, int pinB) 
 {
     _pinR = pinR;
     _pinG = pinG;
@@ -19,7 +19,7 @@ rgbLED::rgbLED(int pinR, int pinG, int pinB)
     pinMode(_pinB, OUTPUT);
 };
 
-void rgbLED::setColor(int R, int G, int B) 
+void RGBLED::setColor(int R, int G, int B) 
 {
     analogWrite(_pinR, R);
     analogWrite(_pinG, G);

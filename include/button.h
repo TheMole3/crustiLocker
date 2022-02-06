@@ -1,18 +1,18 @@
 /*
 
-  button.h - Library for detecting button presses
+  Button.h - Library for detecting Button presses
 
 */
 
-#ifndef button_h
-#define button_h
+#ifndef Button_h
+#define Button_h
 
 #include "Arduino.h"
 
-class button 
+class Button 
 {
   public:
-    button(int pin);
+    Button(int pin);
 
     bool wasPressed();
 

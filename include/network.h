@@ -15,7 +15,7 @@
 #include <ESP8266HTTPClient.h>  // Include the request library
 #include <ArduinoJson.h>        // Include json library
 
-class network 
+class Network 
 {
   public:
     void init();
