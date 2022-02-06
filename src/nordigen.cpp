@@ -13,7 +13,7 @@
 
 Nordigen::Nordigen()
 {
-    store Storage;
+    Store Storage;
     endUserId = Storage.getConfigValue("endUserId");
     access_token = Storage.getConfigValue("access_token");
     requisition_UUID = Storage.getConfigValue("requisition_UUID");
@@ -51,7 +51,7 @@ bool Nordigen::newCrustiTransactionExists(Network network)
             for (int i = 0; i < obj["transactions"].size(); i++)
             {
                 // If the transactions matches the criteria for amount and message
-                if(obj["transactions"][i]["transactionAmount"]["amount"] == store().getConfigValue("PRICE") && obj["transactions"][i]["remittanceInformationUnstructured"] == store().getConfigValue("MESSAGEMATCH")) {
+                if(obj["transactions"][i]["transactionAmount"]["amount"] == Store().getConfigValue("PRICE") && obj["transactions"][i]["remittanceInformationUnstructured"] == Store().getConfigValue("MESSAGEMATCH")) {
                     // Check if this transaction already has been dispensed
                 }
             }     
