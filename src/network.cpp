@@ -45,6 +45,8 @@ String Network::httpGETRequest(const char* serverName, String access_token)
     // Add auth header
     if(access_token) http.addHeader("Authorization", "Token " + access_token, true);
     
+    http.addHeader("Content-Length", "0");
+    
     // Send HTTP POST request
     int httpResponseCode = http.GET();
     
