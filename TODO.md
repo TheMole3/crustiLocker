@@ -1,5 +1,4 @@
-I loopen där man checkar transactions i typ några minuter, slå av och på lampan efter varje transaction istället... Tror det funkar bättre
-
+PUSHBULLET
 
 
 
