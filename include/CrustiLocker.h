@@ -15,6 +15,7 @@
 #include "RGBLED.h"
 #include "StepperController.h"
 #include "Store.h"
+#include "Pushbullet.h"
 
 class CrustiLocker
 {
@@ -30,6 +31,7 @@ class CrustiLocker
     RGBLED led = RGBLED(D4, D2, D1);
     StepperController stepperMotor = StepperController(D5, D6, D7, D8);
     Store store;
+    Pushbullet pushbullet = Pushbullet(store.getConfigValue("PUSHBULLET_TOKEN"), store.getConfigValue("PUSHBULLET_CHANNEL"));
 };
 
 
