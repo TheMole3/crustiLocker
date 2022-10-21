@@ -25,7 +25,6 @@ Nordigen::Nordigen()
     requisition_UUID.trim();
     account_UUID.trim();
     aspsp_id.trim();
-    
 }
 
 bool Nordigen::newCrustiTransactionExists(Network network)
