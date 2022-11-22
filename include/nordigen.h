@@ -22,6 +22,9 @@ class Nordigen
     // Get a requsitionLink to update nordigen, returns null if no requsition could be made
     String getRequsitionLink(Network network);
 
+    // Generate a new requsition link
+    String Nordigen::createRequisitionLink(Network network);
+
   private:
     String apiURL   = "https://proxy.melo.se/nordigen/api";
 

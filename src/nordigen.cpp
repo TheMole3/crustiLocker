@@ -85,3 +85,25 @@ String Nordigen::getRequsitionLink(Network network)
     }
     return requsitionLink;
 };
+
+String Nordigen::createRequisitionLink(Network network)
+{
+    // Make sure that we have WIFI
+    if(WiFi.status()== WL_CONNECTED){
+
+        // Delete the old requsition
+        String deleteRequstitionPath = apiURL + "/requisitions/" + requisition_UUID;
+        String deletedRequstion = network.httpDELETERequest(deleteRequstitionPath.c_str(), access_token);
+
+        // Create a new requsition
+        String newRequsitionPath = apiURL + "/requsitions/";
+        String newRequsition = network.httpPOSTRequest(newRequsitionPath.c_str("""
+        {  
+            \"redirect\": \"https://thumbs.dreamstime.com/b/done-text-green-grungy-vintage-rectangle-stamp-done-text-green-grungy-vintage-stamp-214435444.jpg\",
+            \"reference\": \"crustiLocker\",  
+            \"enduser_id\": \"crustiLocker\",  
+            \"agreements\": [] 
+        }
+        """), access_token)
+    }
+}
