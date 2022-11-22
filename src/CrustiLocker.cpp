@@ -50,7 +50,7 @@ void CrustiLocker::loop()
       led.setColor(0, 0, 0);
     }
 
-    // Clear button presses during the transaction search
+    // Clear button presses that happened during the transaction search
     button.wasPressed();
   }
 
