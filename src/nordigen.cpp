@@ -50,7 +50,7 @@ bool Nordigen::newCrustiTransactionExists(Network network)
             for (int i = 0; i < obj["transactions"].size(); i++)
             {
                 // If the transactions matches the criteria for amount and message
-                if(obj["transactions"][i]["transactionAmount"]["amount"] == Store().getConfigValue("PRICE") && obj["transactions"][i]["remittanceInformationUnstructured"] == Store().getConfigValue("MESSAGEMATCH")) {
+                if(obj["transactions"][i]["transactionAmount"]["amount"] == Store().getConfigValue("PRICE") && obj["transactions"][i]["remittanceInformationStructured"] == "swish mottagen") {
                     // Check if this transaction already has been dispensed
                 }
             }     
