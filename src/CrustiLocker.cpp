@@ -25,7 +25,12 @@ void CrustiLocker::loop()
       // If there is a new crusti transaction
       if(nordigen.newCrustiTransactionExists(network)) 
       {
-        stepperMotor.rotate(360);
+        motor.start(100);
+        
+        while (!IR.wasPressed()) {} // Wait for IR scanner to trigger
+
+        motor.stop();
+
         store.addCrustis(-1);
       };
 

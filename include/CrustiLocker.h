@@ -13,7 +13,7 @@
 #include "Network.h"
 #include "Nordigen.h"
 #include "RGBLED.h"
-#include "StepperController.h"
+#include "Motor.h"
 #include "Store.h"
 #include "Pushbullet.h"
 
@@ -29,7 +29,10 @@ class CrustiLocker
     Network network = Network();
     Nordigen nordigen = Nordigen();
     RGBLED led = RGBLED(D4, D2, D1);
-    StepperController stepperMotor = StepperController(D5, D6, D7, D8);
+
+    Motor motor = Motor(D5);
+    Button IR = Button(D6);
+
     Store store;
     Pushbullet pushbullet = Pushbullet(store.getConfigValue("PUSHBULLET_TOKEN"), store.getConfigValue("PUSHBULLET_CHANNEL"));
 };
