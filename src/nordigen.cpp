@@ -107,3 +107,4 @@ String Nordigen::createRequisitionLink(Network network)
         """), access_token)
     }
 }
+
