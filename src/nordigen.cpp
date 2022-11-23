@@ -42,7 +42,6 @@ bool Nordigen::newCrustiTransactionExists(Network network)
         if(obj["statusCode"].as<int>() != 200) // If there was an error at nordigen
         {
             Serial.println("Error!\n" + transactions);
-            // TODO - send error to pushbullet
         } 
         else 
         {
@@ -64,7 +63,8 @@ bool Nordigen::newCrustiTransactionExists(Network network)
 String Nordigen::getRequsitionLink(Network network) 
 {
     String requsitionLink;
-    if(WiFi.status()== WL_CONNECTED){
+    if(WiFi.status()== WL_CONNECTED)
+    {
         String serverPath = apiURL + "/requisitions/" + requisition_UUID + "/links/";
          
         String requsition = network.httpPOSTRequest(serverPath.c_str(),"{\"aspsp_id\": \"" + aspsp_id + "\"}", access_token);
@@ -76,7 +76,12 @@ String Nordigen::getRequsitionLink(Network network)
         if(obj["statusCode"].as<int>() != 200) // If there was an error at nordigen
         {
             Serial.println("Error!\n" + requsition);
-            // TODO - send error to pushbullet
+
+            pushbullet.push("Nordigen error", 
+            "Get requsition link\n"
+            "Code: " + String(obj["statusCode"].as<int>() ) + "\n"
+            "Requsition: " + String(requsition)
+            );
         } 
         else 
         {
@@ -89,7 +94,8 @@ String Nordigen::getRequsitionLink(Network network)
 String Nordigen::createRequisitionLink(Network network)
 {
     // Make sure that we have WIFI
-    if(WiFi.status()== WL_CONNECTED){
+    if(WiFi.status()== WL_CONNECTED) 
+    {
 
         // Delete the old requsition
         String deleteRequstitionPath = apiURL + "/requisitions/" + requisition_UUID;
@@ -105,6 +111,28 @@ String Nordigen::createRequisitionLink(Network network)
             \"agreements\": [] 
         }
         """), access_token)
+
+        // Convert responce to JSON
+        DynamicJsonDocument doc(1024);
+        deserializeJson(doc, newRequsition);
+        JsonObject obj = doc.as<JsonObject>();
+
+        if(obj["statusCode"].as<int>() != 200) // If there was an error at nordigen
+        {
+            Serial.println("Error!\n" + newRequsition);
+
+            pushbullet.push("Nordigen error", 
+            "Create requsition link\n"
+            "Code: " + String(obj["statusCode"].as<int>() ) + "\n"
+            "Requsition: " + String(newRequsition)
+            );
+        } 
+        else 
+        {
+            // Save the requsition id
+            String id = obj["id"].as<String>();
+            Store.setConfigValue("requisition_UUID", id);
+        }
     }
 }
 
