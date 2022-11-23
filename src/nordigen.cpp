@@ -29,6 +29,8 @@ Nordigen::Nordigen()
 
 bool Nordigen::newCrustiTransactionExists(Network network)
 {
+    Store Storage;
+
     bool status = false;
     if(WiFi.status()== WL_CONNECTED){
         String serverPath = apiURL + "/accounts/" + account_UUID + "/transactions/";
@@ -43,16 +45,22 @@ bool Nordigen::newCrustiTransactionExists(Network network)
         {
             Serial.println("Error!\n" + transactions);
         } 
-        else 
+        else
         {
             // Loop thru transactions to serach for a new matching one
             for (int i = 0; i < obj["transactions"].size(); i++)
             {
                 // If the transactions matches the criteria for amount and message
-                if(obj["transactions"][i]["transactionAmount"]["amount"] == Store().getConfigValue("PRICE") && obj["transactions"][i]["remittanceInformationStructured"] == "swish mottagen") {
-                    // Check if this transaction already has been dispensed
+                if(obj["transactions"][i]["transactionAmount"]["amount"] == Store().getConfigValue("PRICE") && obj["transactions"][i]["remittanceInformationStructured"] == "swish mottagen") 
+                {
+                    // Check that the transaction hasn't already been dispensed
+                    if(Storage.checkTransaction(obj["transactions"][i]["transactionId"]))
+                    {
+                        status = true;
+                        break;
+                    }
                 }
-            }     
+            }
         }
     }
 
