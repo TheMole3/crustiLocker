@@ -114,6 +114,7 @@ String Nordigen::createRequisitionLink(Network network)
         String newRequsition = network.httpPOSTRequest(newRequsitionPath.c_str("""
         {  
             \"redirect\": \"https://thumbs.dreamstime.com/b/done-text-green-grungy-vintage-rectangle-stamp-done-text-green-grungy-vintage-stamp-214435444.jpg\",
+            \"institution_id\": \"
             \"reference\": \"crustiLocker\",  
             \"enduser_id\": \"crustiLocker\",  
             \"agreements\": [] 

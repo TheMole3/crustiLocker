@@ -29,8 +29,9 @@ class Network
     Pushbullet &pushbullet;
 
   private:
-    const char* ssid        = "CrustiLocker";         // The SSID (name) of the Wi-Fi network you want to connect to
-    const char* password    = "CrustiLocker2022";     // The password of the Wi-Fi network
+    Store store;
+    const char* ssid        = store.getConfigValue("networkSSID").c_str(); // The SSID (name) of the Wi-Fi network you want to connect to
+    const char* password    = store.getConfigValue("networkPASS").c_str(); // The password of the Wi-Fi network
 };
 
 
