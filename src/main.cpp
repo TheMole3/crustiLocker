@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include "CrustiLocker.h"
-#include "adminMode/AdminMode.h"
+#include "AdminMode.h"
 
 CrustiLocker crustiLocker;
 AdminMode adminMode;

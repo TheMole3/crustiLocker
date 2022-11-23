@@ -22,7 +22,7 @@ class AdminMode
     void setup();
     void loop();
 
-    void AdminMode::sendCrustiAmount()
+    void AdminMode::sendCrustiAmount();
 
   private:
     Button button = Button(D3);
