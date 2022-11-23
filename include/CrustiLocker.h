@@ -26,7 +26,7 @@ class CrustiLocker
 
   private:
     Button button = Button(D3);
-    Network network = Network();
+    Network network;
     Nordigen nordigen = Nordigen();
     RGBLED led = RGBLED(D4, D2, D1);
 

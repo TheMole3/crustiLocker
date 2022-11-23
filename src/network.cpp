@@ -8,7 +8,7 @@
 #include "Network.h"
 
 
-void Network::init()
+void Network::init(Pushbullet &pushbullet)
 {
     // Setting ESP into STATION mode only (no AP mode or dual mode)
     wifi_set_opmode(STATION_MODE);
@@ -27,6 +27,9 @@ void Network::init()
     Serial.print("IP address:\t");
     Serial.println(WiFi.localIP());         // Send the IP address of the ESP8266 to the computer
     Serial.print("\n");
+
+    // Save pushbullet reference
+    this->pushbullet = pushbullet;
 };
 
 
@@ -47,7 +50,7 @@ String Network::httpGETRequest(const char* serverName, String access_token)
     
     http.addHeader("Content-Length", "0");
     
-    // Send HTTP POST request
+    // Send HTTP GET request
     int httpResponseCode = http.GET();
     
     String payload = "{}"; 
@@ -63,7 +66,11 @@ String Network::httpGETRequest(const char* serverName, String access_token)
         Serial.print("Error code: ");
         Serial.println(httpResponseCode);
 
-        // TODO send error to pushbullet
+        pushbullet.push("Network error", 
+        "GET request\n"
+        "Code: " + String(httpResponseCode) + "\n"
+        "URL: " + String(serverName) + "\n"
+        );
     }
     // Free resources
     http.end();
@@ -104,7 +111,12 @@ String Network::httpPOSTRequest(const char* serverName, String body, String acce
         Serial.print("Error code: ");
         Serial.println(httpResponseCode);
 
-        // TODO send error to pushbullet
+        pushbullet.push("Network error", 
+        "POST request\n"
+        "Code: " + String(httpResponseCode) + "\n"
+        "URL: " + String(serverName) + "\n"
+        "Body: " + String(body) + "\n"
+        );
     }
     // Free resources
     http.end();

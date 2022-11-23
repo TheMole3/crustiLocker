@@ -9,7 +9,7 @@
 
 void CrustiLocker::setup()
 {
-  network.init();
+  network.init(pushbullet);
 }
 
 void CrustiLocker::loop()
