@@ -1,6 +1,6 @@
 /*
 
-    DC Motor controller for Mosfet driver
+   Motor.h DC Motor controller for Mosfet driver
 
 */
 
