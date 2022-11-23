@@ -9,55 +9,92 @@
 
 void CrustiLocker::setup()
 {
-  network.init(pushbullet);
+    network.init(pushbullet);
 }
+
+int mode = 0;
+unsigned long waitUntil = millis();
+unsigned long timeout = 0;
 
 void CrustiLocker::loop()
 {
-  // If the button was pressed since the last loop
-  if(button.wasPressed()) 
-  {
-    long unsigned int loopUntil = millis() + 1000*60*1; // Loop until 1 minute has passed
+    // If there are no crustis left
+    if(store.getCrustis() >= 0) {
+        led.setColor(255, 0, 0);
+        return;
+    } 
 
-    while(millis() <= loopUntil) {
-      led.setColor(255, 100, 0); 
-
-      // If there is a new crusti transaction
-      if(nordigen.newCrustiTransactionExists(network)) 
-      {
-        motor.start(100);
-        
-        while (!IR.wasPressed()) {} // Wait for IR scanner to trigger
-
-        motor.stop();
-
-        store.addCrustis(-1);
-      };
-
-      // Simulate doing work :P
-      led.setColor(0, 0, 0);
-      delay(1000);
-      for (int i = 0; i < 5; i++)
-      {
-        led.setColor(255, 100, 0); 
-        delay(1000);
-        led.setColor(0, 0, 0);
-        delay(1000);
-      }
-    }
-
-    // Blink light red to show error
-    for (int i = 0; i < 3; i++)
+    switch(mode) 
     {
-      delay(150);
-      led.setColor(255, 0, 0);
-      delay(200);
-      led.setColor(0, 0, 0);
+        default: // Wait for button press
+            if(button.wasPressed()) 
+            {
+                mode = 1; // Go to next step
+                led.blink(255, 100, 0, 1000); // Blink led yellow
+
+                // Set transaction timeout
+                timeout = millis() + 1000 * 60 * 1;
+            }
+
+        break;
+
+        case 1: // Check for new transactions
+            if(millis() >= waitUntil) 
+            {
+                waitUntil = millis() + 5000;
+                if(nordigen.newCrustiTransactionExists(network)) // If there is a new transaction
+                {
+                    // Turn the light solid green
+                    led.stopBlink();
+                    led.setColor(0, 255, 0);
+
+                    mode = 2; // Go to next step
+
+                    // Dispense crusti
+                    motor.start(100);
+                }
+            }
+
+            // Timeout transaction
+            if(millis() >= timeout) 
+            {
+                led.blink(255, 0, 0, 500);
+
+                timeout = millis() + 5000;
+                mode = 3;
+            }
+
+        break;
+
+        case 2: // Wait for IR to trigger
+            if(IR.wasPressed()) 
+            {
+                motor.stop();
+                store.addCrustis(-1);
+
+                led.setColor(0, 0, 0);
+
+                // Clear button presses that happened during the transaction search
+                button.wasPressed();
+                mode = 0; // Return to default mode
+            }
+
+        break;
+
+        case 3: // Clear error
+            if(millis() >= timeout) 
+            {
+                led.stopBlink();
+
+                // Clear button presses that happened during the transaction search
+                button.wasPressed();
+                mode = 0; // Return to default mode
+            }
+
+        break;
     }
 
-    // Clear button presses that happened during the transaction search
-    button.wasPressed();
-  }
-
-  delay(1000);
+    led.loop();
 }
+
+
