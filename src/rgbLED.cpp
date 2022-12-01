@@ -49,10 +49,9 @@ void RGBLED::stopBlink()
 void RGBLED::loop()
 {
     // Wait until next blink
-    if(millis() >= nextBlink && isBlinking) 
+    if((millis() >= nextBlink) && isBlinking) 
     {
-        nextBlink = millis() + ms;
-
+        nextBlink = millis() + this->ms;
         if(bl1) 
         {
             setColor(R, G, B);
@@ -62,6 +61,7 @@ void RGBLED::loop()
             setColor(0, 0, 0);
         }
 
-        bl1 = bl1;
+        bl1 = !bl1;
     }
+
 }

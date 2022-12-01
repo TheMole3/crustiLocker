@@ -19,10 +19,11 @@
 class AdminMode
 {
   public:
+    AdminMode();
     void setup();
     void loop();
 
-    void AdminMode::sendCrustiAmount();
+    void sendCrustiAmount();
 
   private:
     Button button = Button(D3);
@@ -33,7 +34,7 @@ class AdminMode
     Button IR = Button(D6);
 
     Store store;
-    Pushbullet pushbullet = Pushbullet(store.getConfigValue("PUSHBULLET_TOKEN"), store.getConfigValue("PUSHBULLET_CHANNEL"));
+    Pushbullet pushbullet;
 };
 
 

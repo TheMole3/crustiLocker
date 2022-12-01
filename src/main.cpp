@@ -2,6 +2,7 @@
 
 #include "CrustiLocker.h"
 #include "AdminMode.h"
+#include "Store.h"
 
 CrustiLocker crustiLocker;
 AdminMode adminMode;
@@ -13,7 +14,8 @@ void setup()
     Serial.begin(9600);
     
     // If the admin button is pressed
-    adminModeEnabled = digitalRead(D7);
+    pinMode(D7, INPUT);
+    //adminModeEnabled = digitalRead(D7);
     if(adminModeEnabled) 
     {
         adminMode.setup();

@@ -20,7 +20,7 @@
 class CrustiLocker
 {
   public:
-    
+    CrustiLocker();
     void setup();
     void loop();
 
@@ -34,7 +34,9 @@ class CrustiLocker
     Button IR = Button(D6);
 
     Store store;
-    Pushbullet pushbullet = Pushbullet(store.getConfigValue("PUSHBULLET_TOKEN"), store.getConfigValue("PUSHBULLET_CHANNEL"));
+    int crustis = 9;//store.getCrustis();
+
+    Pushbullet pushbullet;
 };
 
 

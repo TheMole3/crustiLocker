@@ -7,17 +7,7 @@
 #include "Arduino.h"
 #include "Pushbullet.h"
 
-Pushbullet::Pushbullet(String token, String channel) 
-{
-    _token = token.c_str();
-    _channel = channel.c_str();
-};
-
-Pushbullet::~Pushbullet() 
-{
-    delete _token;
-    delete _channel;
-};
+Pushbullet::Pushbullet() {};
 
 void Pushbullet::push(String title, String message) 
 {
@@ -34,10 +24,10 @@ void Pushbullet::push(String title, String message)
     
     http.addHeader("Content-Type", "application/json");
 
-    String json = "{\"type\":\"note\", \"title\":" + title + ", \"body\":" + message + ", \"channel_tag\":"+ _channel + " }";
+    String json = "{\"type\":\"note\", \"title\":\"" + title + "\", \"body\":\"" + message + "\", \"channel_tag\":\""+ _channel + "\"}";
 
     // Send HTTP POST request
     int httpResponseCode = http.POST(json);
-
+    Serial.println(httpResponseCode);
     http.end();
 };

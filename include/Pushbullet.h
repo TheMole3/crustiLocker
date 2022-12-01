@@ -12,17 +12,19 @@
 #include <ESP8266WiFi.h>        // Include the Wi-Fi library
 #include <ESP8266HTTPClient.h>  // Include the request library
 
+#include "Store.h"
+
 class Pushbullet
 {
   public:
-    Pushbullet(String token, String channel);
-    ~Pushbullet();
+    Pushbullet();
 
     void push(String title, String message) ;
 
   private:
-    const char* _token;
-    const char* _channel;
+    Store storage;
+    String _token = storage.getConfigValue("PUSHBULLET_TOKEN");
+    String _channel = storage.getConfigValue("PUSHBULLET_CHANNEL");
 };
 
 

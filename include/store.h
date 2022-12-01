@@ -28,7 +28,7 @@ class Store
   private:
     String configFile       = "config";
     String transactionFile  = "transactions";
-    String crustiFile       = "cruistis";
+    String crustiFile       = "crustis";
 };
 
 

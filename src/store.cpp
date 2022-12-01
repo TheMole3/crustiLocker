@@ -19,13 +19,14 @@ bool Store::checkTransaction(String id)
   
   while (file.available()) 
   {
-    String foundId = file.readStringUntil('\n');
+    String foundId = file.readString() + "-";
+    Serial.println(foundId);
 
-    if (foundId.toInt() == id.toInt()) 
+    /*if (foundId.toInt() == id.toInt()) 
     {
       found = true;
       break;
-    } 
+    } */
   }
 
   if(!found) {
@@ -45,14 +46,13 @@ int Store::getCrustis()
 
   LittleFS.begin();
 
-  File file = LittleFS.open(crustiFile, "a+");
-  
-  while (file.available()) 
-  {
-    String amount = file.readStringUntil('\n');
+  File file = LittleFS.open(crustiFile, "r");
 
-    crustisLeft = amount.toInt();
-  }
+  String amount = file.readString();
+  amount.trim();
+  Serial.println(amount);
+  crustisLeft = amount.toInt();
+  Serial.println(crustisLeft);
 
   LittleFS.end();
 
@@ -65,7 +65,7 @@ int Store::setCrustis(int amount)
 
   File file = LittleFS.open(crustiFile, "w");
 
-  file.print(amount);
+  file.println(amount);
 
   LittleFS.end();
 
@@ -80,7 +80,7 @@ int Store::addCrustis(int amount)
 
   File file = LittleFS.open(crustiFile, "w");
 
-  file.print(newAmount);
+  file.println(newAmount);
 
   LittleFS.end();
 
@@ -95,8 +95,9 @@ String Store::getConfigValue(String key)
   LittleFS.begin();
 
   File file = LittleFS.open(configFile, "r");
+  if(!file) Serial.println("File failed to open, get config value");
   
-  while (file.available()) 
+  while(file.available())
   {
     String foundKey = file.readStringUntil('=');
     String foundValue = file.readStringUntil('\n');
@@ -104,6 +105,7 @@ String Store::getConfigValue(String key)
     if (foundKey == key) 
     {
       value = foundValue;
+      value.trim();
       break;
     }
   }

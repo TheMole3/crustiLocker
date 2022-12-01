@@ -7,8 +7,9 @@
 #include "Arduino.h"
 #include "Network.h"
 
+Network::Network(){}
 
-void Network::init(Pushbullet &pushbullet)
+void Network::init(Pushbullet pushbullet)
 {
     // Setting ESP into STATION mode only (no AP mode or dual mode)
     wifi_set_opmode(STATION_MODE);
@@ -46,7 +47,7 @@ String Network::httpGETRequest(const char* serverName, String access_token)
     http.begin(client, serverName);
 
     // Add auth header
-    if(access_token) http.addHeader("Authorization", "Token " + access_token, true);
+    if(access_token) http.addHeader("Authorization", "Bearer " + access_token, true);
     
     http.addHeader("Content-Length", "0");
     
@@ -55,7 +56,7 @@ String Network::httpGETRequest(const char* serverName, String access_token)
     
     String payload = "{}"; 
     
-    if (httpResponseCode>0) 
+    if (httpResponseCode == 200) 
     {
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
@@ -63,7 +64,7 @@ String Network::httpGETRequest(const char* serverName, String access_token)
     }
     else 
     {
-        Serial.print("Error code: ");
+        Serial.print("HTTP Error code: ");
         Serial.println(httpResponseCode);
 
         pushbullet.push("Network error", 
@@ -91,7 +92,7 @@ String Network::httpPOSTRequest(const char* serverName, String body, String acce
     http.begin(client, serverName);
 
     // Add auth header
-    if(access_token) http.addHeader("Authorization", "Token " + access_token, true);
+    if(access_token) http.addHeader("Authorization", "Bearer " + access_token, true);
     
     http.addHeader("Content-Type", "application/json");
 
@@ -100,7 +101,7 @@ String Network::httpPOSTRequest(const char* serverName, String body, String acce
     
     String payload = "{}"; 
     
-    if (httpResponseCode>0) 
+    if (httpResponseCode == 200) 
     {
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
@@ -108,7 +109,7 @@ String Network::httpPOSTRequest(const char* serverName, String body, String acce
     }
     else 
     {
-        Serial.print("Error code: ");
+        Serial.print("HTTP Error code: ");
         Serial.println(httpResponseCode);
 
         pushbullet.push("Network error", 

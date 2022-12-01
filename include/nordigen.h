@@ -10,6 +10,7 @@
 #include "Arduino.h"
 
 #include "Network.h"
+#include <ArduinoJson.h>        // Include json library
 
 class Nordigen 
 {
@@ -19,21 +20,11 @@ class Nordigen
     // Check if a new transaction for a crusti has appeared in the bank
     bool newCrustiTransactionExists(Network network);
 
-    // Get a requsitionLink to update nordigen, returns null if no requsition could be made
-    String getRequsitionLink(Network network);
-
-    // Generate a new requsition link
-    String Nordigen::createRequisitionLink(Network network);
-
   private:
-    String apiURL   = "https://proxy.melo.se/nordigen/api";
+    const String apiURL   = "https://crusti.melo.se";
 
-    String endUserId; // Nordigen endUserId
-    String access_token; // The nordigen access token
-    String requisition_UUID; // The UUID of the requisition
-    String account_UUID; // The UUID of the bank account to check for transactions
-    String aspsp_id; // Sandbox
+    Store storage;
+    String token = storage.getConfigValue("TOKEN"); // crusti.melo.se Access token
 };
-
 
 #endif

@@ -7,6 +7,8 @@
 #include "Arduino.h"
 #include "AdminMode.h"
 
+AdminMode::AdminMode(){}
+
 void AdminMode::sendCrustiAmount()
 {
     String antal = String(store.getCrustis());
@@ -17,11 +19,7 @@ void AdminMode::setup()
 {
     network.init(pushbullet);
     led.blink(0, 0, 255, 1000); // Blink led
-
-    // Create and send a new requsition link
-    nordigen.createRequisitionLink(network); // Create a new requsition
-    pushbullet.push("Requsition link", nordigen.getRequsitionLink(network));
-
+    
     // Send amount of crustis left
     sendCrustiAmount();
 }

@@ -16,22 +16,26 @@
 #include <ArduinoJson.h>        // Include json library
 
 #include "Pushbullet.h"         // Include Pushbullet
+#include "Store.h"              // Include Storage library
 
 class Network 
 {
   public:
-    void init(Pushbullet &pushbullet);
+    Network();
+    void init(Pushbullet pushbullet);
 
     String httpGETRequest(const char* serverName, String access_token="");
     String httpPOSTRequest(const char* serverName, String body, String access_token="");
 
-    // Pushbullet ref
-    Pushbullet &pushbullet;
 
   private:
     Store store;
-    const char* ssid        = store.getConfigValue("networkSSID").c_str(); // The SSID (name) of the Wi-Fi network you want to connect to
-    const char* password    = store.getConfigValue("networkPASS").c_str(); // The password of the Wi-Fi network
+    
+    // Pushbullet ref
+    Pushbullet pushbullet;
+
+    String ssid        = store.getConfigValue("networkSSID"); // The SSID (name) of the Wi-Fi network you want to connect to
+    String password    = store.getConfigValue("networkPASS"); // The password of the Wi-Fi network
 };
 
 
