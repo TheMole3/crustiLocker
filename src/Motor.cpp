@@ -13,12 +13,12 @@ Motor::Motor(int pin)
     pinMode(pin, OUTPUT);
 };
 
-void Motor::start(int speed)
+void Motor::start()
 {
-    analogWrite(_pin, speed);
+    digitalWrite(_pin, HIGH);
 }
 
 void Motor::stop()
 {
-    analogWrite(_pin, 0);
+    digitalWrite(_pin, LOW);
 }

@@ -69,7 +69,7 @@ void CrustiLocker::loop()
                     // Dispense crusti
                     ir.wasPressed(); // Clear IR
                     Serial.println("Motor start");
-                    motor.start(10);
+                    motor.start();
                 }
             }
 

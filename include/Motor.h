@@ -16,7 +16,7 @@ class Motor
     Motor(int pin);
 
     // Start rotation
-    void start(int speed=255);
+    void start();
 
     // Stop rotation
     void stop();
