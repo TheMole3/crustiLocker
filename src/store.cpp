@@ -20,7 +20,7 @@ bool Store::checkTransaction(String id)
   while (file.available()) 
   {
     String foundId = file.readString() + "-";
-    Serial.println(foundId);
+    Serial.println("Found ID: " + foundId);
 
     /*if (foundId.toInt() == id.toInt()) 
     {
@@ -50,9 +50,8 @@ int Store::getCrustis()
 
   String amount = file.readString();
   amount.trim();
-  Serial.println(amount);
+  Serial.println("Amount: " + amount);
   crustisLeft = amount.toInt();
-  Serial.println(crustisLeft);
 
   LittleFS.end();
 

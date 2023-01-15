@@ -28,6 +28,5 @@ void Pushbullet::push(String title, String message)
 
     // Send HTTP POST request
     int httpResponseCode = http.POST(json);
-    Serial.println(httpResponseCode);
     http.end();
 };

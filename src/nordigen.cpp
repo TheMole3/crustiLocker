@@ -20,11 +20,11 @@ bool Nordigen::newCrustiTransactionExists(Network network)
 {
     Store storage;
 
-    bool status = false;
+    bool status = true;
     if(WiFi.status()== WL_CONNECTED){
         String serverPath = apiURL + "/transactions";
         
-        Serial.println(token);
+        Serial.println("Token: " + token);
         String transactions = network.httpGETRequest(serverPath.c_str(), token);
 
         DynamicJsonDocument doc(2048);

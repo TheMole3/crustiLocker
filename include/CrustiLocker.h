@@ -16,6 +16,7 @@
 #include "Motor.h"
 #include "Store.h"
 #include "Pushbullet.h"
+#include "IR.h"
 
 class CrustiLocker
 {
@@ -31,7 +32,7 @@ class CrustiLocker
     RGBLED led = RGBLED(D4, D2, D1);
 
     Motor motor = Motor(D5);
-    Button IR = Button(D6);
+    IR ir = IR(D6, D8);
 
     Store store;
     int crustis = 9;//store.getCrustis();
