@@ -31,14 +31,14 @@ void IR::loop()
     delayMicroseconds( 210);            // Wait 210µs (8 pulses of 38kHz).
     if( digitalRead( _pin))             // If detector Output is HIGH,
     {
-        //objectDetect = false;           // then no object was detected;
+        objectDetect = false;           // then no object was detected;
     }
     else                                // but if the Output is LOW,
     {
         delayMicroseconds( 395);        // wait for another 15 pulses.
         if( digitalRead( _pin))         // If the Output is now HIGH,
         {                               // then first Read was noise
-            //objectDetect = false;       // and no object was detected;
+            objectDetect = false;       // and no object was detected;
         }
         else                            // but if the Output is still LOW,
         {
