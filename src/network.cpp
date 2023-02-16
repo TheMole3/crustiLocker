@@ -11,7 +11,7 @@ Network::Network(){}
 
 void Network::init(Pushbullet pushbullet)
 {
-    // Setting ESP into STATION mode only (no AP mode or dual mode)
+    // Setting ESP into STATION mode
     wifi_set_opmode(STATION_MODE);
     
     WiFi.begin(ssid, password);             // Connect to the network
@@ -26,20 +26,23 @@ void Network::init(Pushbullet pushbullet)
     Serial.println('\n');
     Serial.println("Connection established!");  
     Serial.print("IP address:\t");
-    Serial.println(WiFi.localIP());         // Send the IP address of the ESP8266 to the computer
+    Serial.println(WiFi.localIP());         // Send the IP address of the ESP8266 to the serial connection
     Serial.print("\n");
 
     // Save pushbullet reference
     this->pushbullet = pushbullet;
 };
 
-
+/*
+    Sends a get request to specified uri with an access_token
+*/
 String Network::httpGETRequest(const char* serverName, String access_token) 
 {
     Serial.println("GET " + String(serverName));
 
+    // Create WiFi client
     WiFiClientSecure client;
-    client.setInsecure();
+    client.setInsecure(); // disable https
 
     HTTPClient http;
         
@@ -56,17 +59,19 @@ String Network::httpGETRequest(const char* serverName, String access_token)
     
     String payload = "{}"; 
     
-    if (httpResponseCode == 200) 
+   
+    if (httpResponseCode == 200) // On success
     {
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
         payload = http.getString();
     }
-    else 
+    else // On error
     {
         Serial.print("HTTP Error code: ");
         Serial.println(httpResponseCode);
 
+        // Send error to pushbullet
         pushbullet.push("Network error", 
         "GET request\n"
         "Code: " + String(httpResponseCode) + "\n"
@@ -79,12 +84,16 @@ String Network::httpGETRequest(const char* serverName, String access_token)
     return payload;
 }
 
+/*
+    Sends a post request to specified uri with an access_token
+*/
 String Network::httpPOSTRequest(const char* serverName, String body, String access_token) 
 {
     Serial.println("POST " + String(serverName));
 
+    // Create wifi client
     WiFiClientSecure client;
-    client.setInsecure();
+    client.setInsecure(); // disable https
 
     HTTPClient http;
 
@@ -101,17 +110,18 @@ String Network::httpPOSTRequest(const char* serverName, String body, String acce
     
     String payload = "{}"; 
     
-    if (httpResponseCode == 200) 
+    if (httpResponseCode == 200) // On success
     {
         Serial.print("HTTP Response code: ");
         Serial.println(httpResponseCode);
         payload = http.getString();
     }
-    else 
+    else  // On error
     {
         Serial.print("HTTP Error code: ");
         Serial.println(httpResponseCode);
 
+        // Send error to pushbullet
         pushbullet.push("Network error", 
         "POST request\n"
         "Code: " + String(httpResponseCode) + "\n"

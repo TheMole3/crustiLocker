@@ -17,8 +17,6 @@ void CrustiLocker::setup()
     pushbullet.push("CRUSTI LOCKER STARTED", "");
 
     led.setColor(0,0,0);
-    Serial.println("What");
-    Serial.println("WORK PLES?");
 }
 
 int mode = 0;
@@ -90,7 +88,7 @@ void CrustiLocker::loop()
             {
                 motor.stop();
                 Serial.println("Motor stop");
-                //crustis = store.addCrustis(-1);
+                crustis = store.addCrustis(-1);
 
                 led.setColor(0, 0, 0);
 

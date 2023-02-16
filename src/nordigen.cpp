@@ -18,19 +18,22 @@ Nordigen::Nordigen()
 
 bool Nordigen::newCrustiTransactionExists(Network network)
 {
+    // Initialise storeage
     Store storage;
 
     bool status = false;
-    if(WiFi.status()== WL_CONNECTED){
+    if(WiFi.status()== WL_CONNECTED){ // If wifi connected
         String serverPath = apiURL + "/transactions";
         
-        Serial.println(token);
+        // get bank transactions
         String transactions = network.httpGETRequest(serverPath.c_str(), token);
 
+        // Create a JSON doc
         DynamicJsonDocument doc(2048);
         deserializeJson(doc, transactions);
         JsonArrayConst obj = doc.as<JsonArray>();
 
+        // Check for valid unused transaction
         for (JsonVariantConst value : obj) {
             Serial.println(value.as<String>());
             Serial.println(value["transactionId"].as<String>());

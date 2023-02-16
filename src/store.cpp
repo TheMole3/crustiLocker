@@ -22,11 +22,11 @@ bool Store::checkTransaction(String id)
     String foundId = file.readString() + "-";
     Serial.println(foundId);
 
-    /*if (foundId.toInt() == id.toInt()) 
+    if (foundId.toInt() == id.toInt()) 
     {
       found = true;
       break;
-    } */
+    }
   }
 
   if(!found) {

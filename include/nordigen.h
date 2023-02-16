@@ -21,9 +21,10 @@ class Nordigen
     bool newCrustiTransactionExists(Network network);
 
   private:
-    const String apiURL   = "https://crusti.melo.se";
-
     Store storage;
+    
+    const String apiURL = storage.getConfigValue("API_URL");
+
     String token = storage.getConfigValue("TOKEN"); // crusti.melo.se Access token
 };
 

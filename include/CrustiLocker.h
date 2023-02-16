@@ -34,7 +34,7 @@ class CrustiLocker
     Button IR = Button(D6);
 
     Store store;
-    int crustis = 9;//store.getCrustis();
+    int crustis = store.getCrustis();
 
     Pushbullet pushbullet;
 };

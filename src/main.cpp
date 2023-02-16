@@ -13,9 +13,9 @@ void setup()
 {
     Serial.begin(9600);
     
-    // If the admin button is pressed
+    // If the admin button is pressed on startup start adminMode
     pinMode(D7, INPUT);
-    //adminModeEnabled = digitalRead(D7);
+    adminModeEnabled = digitalRead(D7);
     if(adminModeEnabled) 
     {
         adminMode.setup();
@@ -27,7 +27,7 @@ void setup()
 
 }
 
-// the loop function runs over and over again forever
+// The loop function runs over and over again forever
 void loop() 
 {
     if(adminModeEnabled) 

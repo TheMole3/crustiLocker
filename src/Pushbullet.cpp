@@ -11,12 +11,13 @@ Pushbullet::Pushbullet() {};
 
 void Pushbullet::push(String title, String message) 
 {
+    // Create wifi client
     WiFiClientSecure client;
-    client.setInsecure();
+    client.setInsecure(); // disable https
 
     HTTPClient http;
 
-    // Your IP address with path or Domain name with URL path 
+    // Pushbullet api adress
     http.begin(client, "https://api.pushbullet.com/v2/pushes");
 
     // Add auth header

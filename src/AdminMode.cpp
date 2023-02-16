@@ -9,12 +9,19 @@
 
 AdminMode::AdminMode(){}
 
+/*
+    Sends the current amount of crustis in store to Pushbullet
+*/
 void AdminMode::sendCrustiAmount()
 {
     String antal = String(store.getCrustis());
     pushbullet.push("Crusti Admin", "Antal kvar: " + antal);
 }
 
+
+/*
+    Admin mode initialisation
+*/
 void AdminMode::setup()
 {
     network.init(pushbullet);
@@ -26,6 +33,7 @@ void AdminMode::setup()
 
 void AdminMode::loop()
 {
+    // Update LED
     led.loop();
 
     if(button.wasPressed()) // Increment crustis on button press
