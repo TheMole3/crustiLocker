@@ -44,6 +44,7 @@ void CrustiLocker::loop()
         default: // Wait for button press
             if(button.wasPressed()) 
             {
+                Serial.println("Button pressed");
                 mode = 1; // Go to next step
                 led.blink(255, 100, 0, 1000); // Blink led yellow
 
@@ -66,9 +67,9 @@ void CrustiLocker::loop()
                     mode = 2; // Go to next step
 
                     // Dispense crusti
-                    IR.wasPressed(); // Clear IR
+                    ir.wasPressed(); // Clear IR
                     Serial.println("Motor start");
-                    motor.start(100);
+                    motor.start();
                 }
             }
 
@@ -84,7 +85,10 @@ void CrustiLocker::loop()
         break;
 
         case 2: // Wait for IR to trigger
-            if(IR.wasPressed()) 
+            ir.loop();
+            delayMicroseconds( 263); // Delay for IR
+
+            if(ir.wasPressed()) 
             {
                 motor.stop();
                 Serial.println("Motor stop");
@@ -96,7 +100,6 @@ void CrustiLocker::loop()
                 button.wasPressed();
                 mode = 0; // Return to default mode
             }
-
         break;
 
         case 3: // Clear error
